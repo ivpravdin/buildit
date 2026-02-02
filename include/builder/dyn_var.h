@@ -532,6 +532,13 @@ public:
 	}
 };
 
+template<typename TO, typename FROM>
+dyn_var<TO> bitcast(const dyn_var<FROM>& from) {
+    dyn_var<FROM*> from_ptr = &from;
+    dyn_var<TO*> to_ptr = (dyn_var<TO*>)from_ptr;
+    return *to_ptr;
+}
+
 template <typename T>
 typename std::enable_if<std::is_base_of<var, T>::value>::type create_return_stmt(const T &a) {
 	create_return_stmt((builder)a);
